@@ -1,0 +1,25 @@
+controller:
+  replicaCount: 2
+
+  service:
+    type: LoadBalancer
+    annotations:
+      networking.gke.io/load-balancer-type: "External"
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+  admissionWebhooks:
+    enabled: true
+    patch:
+      enabled: true
+
+  nodeSelector:
+    kubernetes.io/os: linux
+
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
