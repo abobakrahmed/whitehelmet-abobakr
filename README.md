@@ -1,7 +1,4 @@
-# whitehelmet-task
-
-
-# 🚀 GKE Infrastructure with Monitoring and Ingress
+# 🚀 Terraform GKE Infrastructure with Monitoring and Ingress
 
 This repository automates the provisioning of a **Google Kubernetes Engine (GKE)** cluster using **Terraform**, and includes instructions for installing monitoring and ingress manually using Helm.
 
@@ -11,6 +8,7 @@ This repository automates the provisioning of a **Google Kubernetes Engine (GKE)
 
 ```
 .
+terraform
 ├── argocd.tf
 ├── gke.tf
 ├── kubernetes-dashboard-admin.rbac.yaml
@@ -18,9 +16,10 @@ This repository automates the provisioning of a **Google Kubernetes Engine (GKE)
 ├── terraform.tfvars
 ├── versions.tf
 ├── vpc.tf
+apps  
 ├── kube-prometheus-values.yaml
 ├── nginx-ingress-values.yaml
-└── README.md
+README.md
 ```
 
 ---
@@ -44,7 +43,7 @@ This repository automates the provisioning of a **Google Kubernetes Engine (GKE)
 terraform init
 
 # Plan
-terraform plan 
+terraform plan
 
 # Apply
 terraform apply 
@@ -53,7 +52,6 @@ terraform apply
 > After creation, configure `kubectl`:
 ```bash
 gcloud container clusters get-credentials abiding-casing-457600-s0-gke --zone us-east1-b
-
 ```
 
 ---
@@ -67,14 +65,10 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo update
 ```
 
-### 📥 Install using `kube-prometheus-values.yaml`
-
 ```bash
 kubectl create namespace monitoring
 
-helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
-  --namespace monitoring \
-  -f kube-prometheus-values.yaml
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack   --namespace monitoring   -f kube-prometheus-values.yaml
 ```
 
 > Access **Grafana**:
@@ -102,9 +96,7 @@ helm repo update
 ```bash
 kubectl create namespace ingress-nginx
 
-helm install ingress-nginx ingress-nginx/ingress-nginx \
-  --namespace ingress-nginx \
-  -f nginx-ingress-values.yaml
+helm install ingress-nginx ingress-nginx/ingress-nginx   --namespace ingress-nginx   -f nginx-ingress-values.yaml
 ```
 
 > Check the external IP of the ingress controller:
